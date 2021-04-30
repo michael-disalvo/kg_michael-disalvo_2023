@@ -6,10 +6,12 @@ import (
 	"unicode"
 )
 
+//holds the name for each digit
 var number_names = [10]string{"Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"}
 
-//given command line arguments 250 6 we should print out "TwoFiveZero,Six"
-
+/* This progam will take command line arguments that are numbers, like 23 or 7, and convert them to the form TwoThree and Seven respectively.
+*  Any argument that is not a numebr will not be printed back out.
+ */
 func main() {
 	//get command line arguments and store in args
 	args := os.Args[1:]
@@ -39,7 +41,7 @@ func process_number(digit_form string) (string, bool) {
 			//to get int value from rune c subtract the value of '0'
 			word_form += number_names[c-'0']
 		} else {
-			// FIX ME: raise an error
+			// raise an error
 			return "ERROR", false
 		}
 	}
