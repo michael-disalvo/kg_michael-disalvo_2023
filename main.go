@@ -13,13 +13,16 @@ var number_names = [10]string{"Zero", "One", "Two", "Three", "Four", "Five", "Si
 func main() {
 	//get command line arguments and store in args
 	args := os.Args[1:]
-
 	var output string = ""
+
 	for i, number := range args {
-		//add the string representation to output
-		output += process_number(number)
+		word_form, success := process_number(number)
+		//only if the number was sucessfully processed should we add it to output
+		if success {
+			output += word_form
+		}
 		//if we are not at the last arg, add a comma afterwards
-		if i != len(args)-1 {
+		if i != len(args)-1 && success {
 			output += ","
 		}
 	}
@@ -28,7 +31,7 @@ func main() {
 }
 
 //takes in a number in form of string and returns the string representation of that number ("5" -> "Five")
-func process_number(digit_form string) string {
+func process_number(digit_form string) (string, bool) {
 	var word_form string = ""
 	//iterate over the characters of the input string
 	for _, c := range digit_form {
@@ -37,8 +40,8 @@ func process_number(digit_form string) string {
 			word_form += number_names[c-'0']
 		} else {
 			// FIX ME: raise an error
-			return "ERROR"
+			return "ERROR", false
 		}
 	}
-	return word_form
+	return word_form, true
 }
